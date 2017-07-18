@@ -1,0 +1,4 @@
+com\stpl\automation\test\TestBase.class
+com\stpl\automation\step_definitions_test\AllCucumberSteps.class
+com\stpl\automation\step_definitions_test\RunCucumberTest.class
+com\stpl\automation\stores\StoreTestBase.class

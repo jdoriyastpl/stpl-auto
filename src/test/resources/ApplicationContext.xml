@@ -1,0 +1,58 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder
+		location="classpath:environment/mybrandmall/sarvika_auto.properties" />
+
+
+	<bean id="pageElements" class="java.util.HashMap">
+		<constructor-arg>
+			<map key-type="java.lang.String" value-type="java.lang.String">
+				<!-- SWA Home Page Elements -->
+				<entry key="apparel" value="Apparel" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="storeLandingPage"
+		class="com.stpl.automation.stplstores.storepages.StoreLandingPage"
+		lazy-init="true">
+		<constructor-arg name="webDriverConfiguration" ref="webDriverConfig" />
+		<constructor-arg name="scheme" value="https" />
+		<constructor-arg name="url" value="mybrandmall.com/preview" />
+		<property name="pageElements" ref="pageElements" />
+	</bean>
+
+	<bean id="webDriverConfig" class="com.stpl.automation.webdriver.WebDriverConfig"
+		scope="prototype" lazy-init="true">
+		<constructor-arg>
+			<map>
+				<!-- browser stack lab configuration -->
+				<entry key="browserStackUserName" value="${browserstack.user.name}" />
+				<entry key="accessKey" value="${browserstack.access.key}" />
+				<entry key="remoteWebDriverUrlTemplate" value="https://%s:%s@hub-cloud.browserstack.com/wd/hub" />
+				<!-- test configuration -->
+				<entry key="targetResource"
+					value-type="com.stpl.automation.webdriver.enumeration.TargetResource"
+					value="${web.driver.target.resource}"/>
+				<entry key="browserName" value="${web.driver.browser.name}"/>
+                <entry key="browserVersion" value="${web.driver.browser.version}"/>
+                <entry key="platform" value-type="org.openqa.selenium.Platform" value="${web.driver.platform.name}"/>
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<bean id="remoteClient" class="com.stpl.automation.webdriver.client.BrowserStackClient">
+		<constructor-arg name="scheme" value="https" />
+		<constructor-arg name="hostName"
+			value="${browserstack.user.name}:${browserstack.access.key}@@hub-cloud.browserstack.com/wd/hub" />
+		<constructor-arg name="connectionTimeout" value="10" />
+		<constructor-arg name="socketTimeout" value="120" />
+		<property name="browserStackUserName" value="${browserstack.user.name}" />
+	</bean>
+
+</beans>
