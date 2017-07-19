@@ -19,7 +19,7 @@
 		<maven-shade-plugin.version>2.4.3</maven-shade-plugin.version>
 
 		<!-- default environment -->
-		<environment>mybrandmall</environment>
+		<environment>shopstar2</environment>
 
 		<!-- external libraries -->
 		<guava.version>18.0</guava.version>

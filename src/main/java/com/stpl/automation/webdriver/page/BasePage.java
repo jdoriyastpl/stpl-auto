@@ -13,7 +13,6 @@ import com.stpl.automation.webdriver.enumeration.ByLocators;
 
 import org.openqa.selenium.TakesScreenshot;
 
-
 import cucumber.api.Scenario;
 
 import org.apache.http.HttpResponse;
@@ -84,9 +83,8 @@ public abstract class BasePage implements Closeable {
 	protected static final int WAIT_FOR_LOADIN_DIALOG_TODISMISS = 200;
 	protected static final int WEB_ELEMENT_POLL_THRESHOLD_IN_SEC = 150;
 	private static final Logger LOG = Logger.getLogger(BasePage.class);
-	private static final List<Class> EXPECTED_EXCEPTION_TYPES = Lists
-			.newArrayList(ElementNotVisibleException.class,
-					NoSuchElementException.class);
+	private static final List<Class> EXPECTED_EXCEPTION_TYPES = Lists.newArrayList(ElementNotVisibleException.class,
+			NoSuchElementException.class);
 	private static final String ELEMENT_XPATH_IDENTIFIER = "xpath: ";
 	public static final String JAVASCRIPT_ERROR_MESSAGE = "[JSErrorLogger]: Javascript console errors found!";
 	private final TreeSet<String> browserHandles = new TreeSet<String>();
@@ -106,12 +104,15 @@ public abstract class BasePage implements Closeable {
 		this.webDriver = webDriver;
 	}
 
+	public void quitWebDriver() {
+		this.webDriver.quit();
+	}
+
 	// All subclasses running UI tests should capture screenshot on error
-	public void embedScreenshotOnFailure(Scenario scenario, WebDriver driver) {
+	public void embedScreenshotOnFailure(Scenario scenario) {
 		if (scenario.isFailed()) {
 			try {
-				byte[] screenshot = ((TakesScreenshot) driver)
-						.getScreenshotAs(OutputType.BYTES);
+				byte[] screenshot = ((TakesScreenshot) this.webDriver).getScreenshotAs(OutputType.BYTES);
 				scenario.embed(screenshot, "image/gif");
 			} catch (WebDriverException wde) {
 				System.err.println(wde.getMessage());
@@ -121,11 +122,9 @@ public abstract class BasePage implements Closeable {
 		}
 	}
 
-	public BasePage(WebDriverConfig webDriverConfiguration, String scheme,
-			String url) throws AutomationException {
+	public BasePage(WebDriverConfig webDriverConfiguration, String scheme, String url) throws AutomationException {
 		this(WebDriverFactory.create(webDriverConfiguration));
-		this.originUrl = String.format(Constant.SCHEME_URL_TEMPLATE, scheme,
-				url);
+		this.originUrl = String.format(Constant.SCHEME_URL_TEMPLATE, scheme, url);
 		setWebDimensionForTest();
 		this.webDriver.get(originUrl);
 		// verifyJavascriptConsoleErrors();
@@ -157,54 +156,41 @@ public abstract class BasePage implements Closeable {
 	public BasePage(String scheme, String url) throws AutomationException {
 		this.webDriver = WebDriverFactory.create(webDriverConfig);
 		this.webDriver.manage().window().maximize();
-		this.webDriver.get(String.format(Constant.SCHEME_URL_TEMPLATE, scheme,
-				url));
+		this.webDriver.get(String.format(Constant.SCHEME_URL_TEMPLATE, scheme, url));
 	}
 
 	public final void setPageElements(Map<String, String> pageElements) {
 		this.pageElements = pageElements;
 	}
 
-	protected final void selectDropDownById(String elementId, String visibleText)
-			throws AutomationException {
+	protected final void selectDropDownById(String elementId, String visibleText) throws AutomationException {
 		final Select select = new Select(getWebElementById(elementId));
 		select.selectByVisibleText(visibleText);
 	}
 
-	protected final void selectDropDownByIndex(String elementId, int index)
-			throws AutomationException {
+	protected final void selectDropDownByIndex(String elementId, int index) throws AutomationException {
 		final Select select = new Select(getWebElementById(elementId));
 		select.selectByIndex(index);
 	}
 
-	protected final void selectDropDownByIndex(WebElement element, int index)
-			throws AutomationException {
+	protected final void selectDropDownByIndex(WebElement element, int index) throws AutomationException {
 		final Select select = new Select(element);
 		select.selectByIndex(index);
 	}
 
-	protected final void pollBeforeClick(WebElement webElement)
-			throws AutomationException {
-		PollingUtilities.pollAsyncException(
-				refineElementIdentifierForPollLogging(webElement.toString()),
-				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS,
-				ElementNotVisibleException.class, () -> click(webElement));
+	protected final void pollBeforeClick(WebElement webElement) throws AutomationException {
+		PollingUtilities.pollAsyncException(refineElementIdentifierForPollLogging(webElement.toString()),
+				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS, ElementNotVisibleException.class, () -> click(webElement));
 	}
 
-	protected final void pollBeforeGetValue(WebElement webElement)
-			throws AutomationException {
-		PollingUtilities.pollAsyncException(
-				refineElementIdentifierForPollLogging(webElement.toString()),
-				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS,
-				ElementNotVisibleException.class, () -> getText(webElement));
+	protected final void pollBeforeGetValue(WebElement webElement) throws AutomationException {
+		PollingUtilities.pollAsyncException(refineElementIdentifierForPollLogging(webElement.toString()),
+				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS, ElementNotVisibleException.class, () -> getText(webElement));
 	}
 
-	protected final void pollExceptionBeforeClick(WebElement webElement)
-			throws AutomationException {
-		PollingUtilities.pollAsyncException(
-				refineElementIdentifierForPollLogging(webElement.toString()),
-				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS, WebDriverException.class,
-				() -> click(webElement));
+	protected final void pollExceptionBeforeClick(WebElement webElement) throws AutomationException {
+		PollingUtilities.pollAsyncException(refineElementIdentifierForPollLogging(webElement.toString()),
+				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS, WebDriverException.class, () -> click(webElement));
 	}
 
 	private final int click(final WebElement webElement) {
@@ -221,8 +207,7 @@ public abstract class BasePage implements Closeable {
 			webDriver.close();
 		}
 		// and make sure we end up pointing the webDriver at the open browser
-		webDriver.switchTo().window(
-				webDriver.getWindowHandles().iterator().next());
+		webDriver.switchTo().window(webDriver.getWindowHandles().iterator().next());
 	}
 
 	public void switchToNewlyOpenedWindowUsingTitle(String title) {
@@ -238,53 +223,43 @@ public abstract class BasePage implements Closeable {
 		}
 	}
 
-	protected final WebElement getWebElementById(String elementId)
-			throws AutomationException {
+	protected final WebElement getWebElementById(String elementId) throws AutomationException {
 		return getWebElementBy(byElementId(elementId));
 	}
 
-	protected final WebElement getWebElementByName(String elementName)
-			throws AutomationException {
+	protected final WebElement getWebElementByName(String elementName) throws AutomationException {
 		return getWebElementBy(byElementName(elementName));
 	}
 
-	protected final WebElement getWebElementByClass(String elementClass)
-			throws AutomationException {
+	protected final WebElement getWebElementByClass(String elementClass) throws AutomationException {
 		return getWebElementBy(byElementClass(elementClass));
 	}
 
-	protected final WebElement getWebElementByCss(String elementCss)
-			throws AutomationException {
+	protected final WebElement getWebElementByCss(String elementCss) throws AutomationException {
 		return getWebElementBy(byElementCss(elementCss));
 	}
 
-	protected final List<WebElement> getWebElementsByCss(String elementCss)
-			throws AutomationException {
+	protected final List<WebElement> getWebElementsByCss(String elementCss) throws AutomationException {
 		return getWebElementsBy(byElementCss(elementCss));
 	}
 
-	protected final WebElement getWebElementByLinkText(String elementLinkTextId)
-			throws AutomationException {
+	protected final WebElement getWebElementByLinkText(String elementLinkTextId) throws AutomationException {
 		return getWebElementBy(byElementLinkText(elementLinkTextId));
 	}
 
-	protected final List<WebElement> getWebElementsByClass(String elementClass)
-			throws AutomationException {
+	protected final List<WebElement> getWebElementsByClass(String elementClass) throws AutomationException {
 		return getWebElementsBy(byElementClass(elementClass));
 	}
 
-	protected final List<WebElement> getWebElementsByType(String elementType)
-			throws AutomationException {
+	protected final List<WebElement> getWebElementsByType(String elementType) throws AutomationException {
 		return getWebElementsBy(byElementType(elementType));
 	}
 
-	protected final List<WebElement> getWebElementsByXpath(String elementXpath)
-			throws AutomationException {
+	protected final List<WebElement> getWebElementsByXpath(String elementXpath) throws AutomationException {
 		return getWebElementsBy(byElementXpath(elementXpath));
 	}
 
-	protected final WebElement getWebElementByXpath(String elementXpath)
-			throws AutomationException {
+	protected final WebElement getWebElementByXpath(String elementXpath) throws AutomationException {
 		return getWebElementBy(byElementXpath(elementXpath));
 	}
 
@@ -292,19 +267,16 @@ public abstract class BasePage implements Closeable {
 		return By.xpath(pageElements.get(elementXpath));
 	}
 
-	protected final WebElement getWebElementByLinkTextDirectly(String linkText)
-			throws AutomationException {
+	protected final WebElement getWebElementByLinkTextDirectly(String linkText) throws AutomationException {
 		return getWebElementBy(byElementLinkTextDirectly(linkText));
 	}
 
-	protected final WebElement getWebElementByType(String elementType)
-			throws AutomationException {
+	protected final WebElement getWebElementByType(String elementType) throws AutomationException {
 		return getWebElementBy(byElementType(elementType));
 	}
 
 	private final By byElementType(String elementType) {
-		return By.xpath(XPathConstant
-				.buildSearchElementByTypeString(pageElements.get(elementType)));
+		return By.xpath(XPathConstant.buildSearchElementByTypeString(pageElements.get(elementType)));
 	}
 
 	private final By byElementCss(String elementCss) {
@@ -312,15 +284,11 @@ public abstract class BasePage implements Closeable {
 	}
 
 	private final By byElementClass(String elementClass) {
-		return By
-				.xpath(XPathConstant
-						.buildSearchElementByClassString(pageElements
-								.get(elementClass)));
+		return By.xpath(XPathConstant.buildSearchElementByClassString(pageElements.get(elementClass)));
 	}
 
 	private final By byElementId(String elementId) {
-		return By.xpath(XPathConstant.buildSearchElementByIdString(pageElements
-				.get(elementId)));
+		return By.xpath(XPathConstant.buildSearchElementByIdString(pageElements.get(elementId)));
 	}
 
 	private final By byElementLinkText(String elementLinkTextId) {
@@ -332,28 +300,20 @@ public abstract class BasePage implements Closeable {
 	}
 
 	private final By byElementName(String elementName) {
-		return By.xpath(XPathConstant
-				.buildSearchElementByNameString(pageElements.get(elementName)));
+		return By.xpath(XPathConstant.buildSearchElementByNameString(pageElements.get(elementName)));
 	}
 
 	private final WebElement getWebElementBy(By by) throws AutomationException {
-		final WebElement webElement = PollingUtilities
-				.pollNotNullIgnoreException(
-						refineElementIdentifierForPollLogging(by.toString()),
-						WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS,
-						EXPECTED_EXCEPTION_TYPES,
-						() -> webDriver.findElement(by));
+		final WebElement webElement = PollingUtilities.pollNotNullIgnoreException(
+				refineElementIdentifierForPollLogging(by.toString()), WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS,
+				EXPECTED_EXCEPTION_TYPES, () -> webDriver.findElement(by));
 		return webElement;
 	}
 
-	private final List<WebElement> getWebElementsBy(By by)
-			throws AutomationException {
-		final List<WebElement> webElement = PollingUtilities
-				.pollNotNullIgnoreException(
-						refineElementIdentifierForPollLogging(by.toString()),
-						WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS,
-						EXPECTED_EXCEPTION_TYPES,
-						() -> webDriver.findElements(by));
+	private final List<WebElement> getWebElementsBy(By by) throws AutomationException {
+		final List<WebElement> webElement = PollingUtilities.pollNotNullIgnoreException(
+				refineElementIdentifierForPollLogging(by.toString()), WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS,
+				EXPECTED_EXCEPTION_TYPES, () -> webDriver.findElements(by));
 		return webElement;
 	}
 
@@ -386,13 +346,11 @@ public abstract class BasePage implements Closeable {
 		final String scrollElementIntoMiddle = "var viewPortHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);"
 				+ "var elementTop = arguments[0].getBoundingClientRect().top;"
 				+ "window.scrollBy(0, elementTop-(viewPortHeight/2));";
-		((JavascriptExecutor) webDriver).executeScript(scrollElementIntoMiddle,
-				element);
+		((JavascriptExecutor) webDriver).executeScript(scrollElementIntoMiddle, element);
 	}
 
 	public void scrollingToBottomofAPage() {
-		((JavascriptExecutor) webDriver)
-				.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
 
 	public String getText(WebElement element) {
@@ -451,8 +409,7 @@ public abstract class BasePage implements Closeable {
 	public final void close() {
 		if (Objects.nonNull(this.webDriver)) {
 			try {
-				LOG.info(String.format("Closing web driver session %s",
-						webDriver));
+				LOG.info(String.format("Closing web driver session %s", webDriver));
 				webDriver.quit();
 			} catch (final Exception ex) {
 				LOG.error(ex.getMessage());
@@ -466,16 +423,14 @@ public abstract class BasePage implements Closeable {
 	 * @param elementIdentifier
 	 * @return xpath if found else the entire WebElement or By for logging
 	 */
-	private static String refineElementIdentifierForPollLogging(
-			String elementIdentifier) {
-		final int xPathStartIndex = elementIdentifier
-				.indexOf(ELEMENT_XPATH_IDENTIFIER);
+	private static String refineElementIdentifierForPollLogging(String elementIdentifier) {
+		final int xPathStartIndex = elementIdentifier.indexOf(ELEMENT_XPATH_IDENTIFIER);
 		if (xPathStartIndex >= 0) {
 			// Find element's xpath for identifying the element which
 			// PollingUtility waits for
-			final String xpathString = elementIdentifier.substring(
-					xPathStartIndex + ELEMENT_XPATH_IDENTIFIER.length(),
-					(elementIdentifier.length())).replace("]]", "]");
+			final String xpathString = elementIdentifier
+					.substring(xPathStartIndex + ELEMENT_XPATH_IDENTIFIER.length(), (elementIdentifier.length()))
+					.replace("]]", "]");
 			if (!Strings.isNullOrEmpty(xpathString)) {
 				return xpathString;
 			} else {
@@ -585,8 +540,7 @@ public abstract class BasePage implements Closeable {
 		}
 	}
 
-	protected final List<WebElement> getWebElementsById(String elementId)
-			throws AutomationException {
+	protected final List<WebElement> getWebElementsById(String elementId) throws AutomationException {
 		return getWebElementsBy(byElementId(elementId));
 	}
 
@@ -595,8 +549,7 @@ public abstract class BasePage implements Closeable {
 	}
 
 	public String getSessionCookie() {
-		final Cookie idv = webDriver.manage()
-				.getCookieNamed("prosper_info_dev");
+		final Cookie idv = webDriver.manage().getCookieNamed("prosper_info_dev");
 		final String idvCookie = String.valueOf(idv);
 		return idvCookie;
 
@@ -625,18 +578,14 @@ public abstract class BasePage implements Closeable {
 		action.doubleClick(element).perform();
 	}
 
-	public void dragAndDrop(WebElement element, int xOffsetValue,
-			int yOffsetValue) throws InterruptedException {
+	public void dragAndDrop(WebElement element, int xOffsetValue, int yOffsetValue) throws InterruptedException {
 		final Actions action = new Actions(webDriver);
-		action.dragAndDropBy(element, xOffsetValue, yOffsetValue).build()
-				.perform();
+		action.dragAndDropBy(element, xOffsetValue, yOffsetValue).build().perform();
 	}
 
-	public void clickAndDrag(WebElement element, int xOffsetValue,
-			int yOffsetValue) throws InterruptedException {
+	public void clickAndDrag(WebElement element, int xOffsetValue, int yOffsetValue) throws InterruptedException {
 		final Actions action = new Actions(webDriver);
-		action.clickAndHold(element).moveByOffset(xOffsetValue, yOffsetValue)
-				.release().build().perform();
+		action.clickAndHold(element).moveByOffset(xOffsetValue, yOffsetValue).release().build().perform();
 	}
 
 	/**
@@ -666,8 +615,7 @@ public abstract class BasePage implements Closeable {
 	 *            Drop-down option to be selected
 	 * @throws AutomationException
 	 */
-	public void selectFromUserHeaderDropdown(String option)
-			throws AutomationException {
+	public void selectFromUserHeaderDropdown(String option) throws AutomationException {
 		hoverOver(getWebElementByXpath("user-header_xpath"));
 		// temp fix for click on Message from dropdown on pre-reg page
 		final List<WebElement> listItems = getWebElementsByXpath("headerListItems_dropdown_xpath");
@@ -689,8 +637,7 @@ public abstract class BasePage implements Closeable {
 	 *            Option to be selected
 	 * @throws AutomationException
 	 */
-	public void selectFromUserHeaderDropdownDOTNET(String option)
-			throws AutomationException {
+	public void selectFromUserHeaderDropdownDOTNET(String option) throws AutomationException {
 
 		hoverOver(getWebElementByCss("dotNetUserHeaderDropDown_css"));
 		for (final WebElement listItem : getWebElementsByCss("dotNetUserHeaderDropDownOptions_css")) {
@@ -726,13 +673,11 @@ public abstract class BasePage implements Closeable {
 	public String getWindowLocationHref() {
 		// webdriver.getCurrentUrl sometimes does not return the actual current
 		// url but returns the instantiated url
-		return JSUtilities.execute(webDriver, "return window.location.href",
-				String.class);
+		return JSUtilities.execute(webDriver, "return window.location.href", String.class);
 	}
 
 	public void waitForPageToLoad(String urlIdentifier) {
-		final WebDriverWait wait = new WebDriverWait(webDriver,
-				WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS / 1000);
+		final WebDriverWait wait = new WebDriverWait(webDriver, WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS / 1000);
 		wait.until(ExpectedConditions.urlContains(urlIdentifier));
 	}
 
@@ -742,31 +687,25 @@ public abstract class BasePage implements Closeable {
 	}
 
 	public boolean isInvalidOfferPageDisplayed() {
-		return (webDriver.getPageSource().contains("Invalid Offer") || getWindowLocationHref()
-				.contains("/error/E-115"));
+		return (webDriver.getPageSource().contains("Invalid Offer")
+				|| getWindowLocationHref().contains("/error/E-115"));
 	}
 
-	private void waitUntilPageStopsLoading(int timeout,
-			String elementIdentifierByCss, String getClassName) {
-		final By loadingIndicatorLocator = By
-				.cssSelector(elementIdentifierByCss);
+	private void waitUntilPageStopsLoading(int timeout, String elementIdentifierByCss, String getClassName) {
+		final By loadingIndicatorLocator = By.cssSelector(elementIdentifierByCss);
 		LOG.info("Loader stops spinning at" + getClassName);
 		final WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-		wait.until(ExpectedConditions
-				.invisibilityOfElementLocated(loadingIndicatorLocator));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(loadingIndicatorLocator));
 	}
 
-	private boolean pageStartsLoading(int timeout,
-			String elementIdentifierByCss, String getClassName) {
+	private boolean pageStartsLoading(int timeout, String elementIdentifierByCss, String getClassName) {
 		WebElement element = null;
 		try {
 			LOG.info("Loader starts spinning at " + getClassName);
-			final By loadingIndicatorLocator = By
-					.cssSelector(elementIdentifierByCss);
+			final By loadingIndicatorLocator = By.cssSelector(elementIdentifierByCss);
 
 			final WebDriverWait wait = new WebDriverWait(webDriver, 10);
-			element = wait.until(ExpectedConditions
-					.visibilityOfElementLocated(loadingIndicatorLocator));
+			element = wait.until(ExpectedConditions.visibilityOfElementLocated(loadingIndicatorLocator));
 
 		} catch (final TimeoutException e) {
 			// Loader isn't displayed yet, or already in syc
@@ -780,8 +719,7 @@ public abstract class BasePage implements Closeable {
 	}
 
 	public boolean isTextDisplayed(String staticText) {
-		return webDriver.findElement(By.tagName("body")).getText()
-				.contains(staticText);
+		return webDriver.findElement(By.tagName("body")).getText().contains(staticText);
 	}
 
 	public String getOriginUrlWithScheme() {
@@ -818,8 +756,7 @@ public abstract class BasePage implements Closeable {
 	 * @param byLocator
 	 * @return
 	 */
-	public boolean isElementPresentOnPage(String locatorKey,
-			ByLocators byLocator) {
+	public boolean isElementPresentOnPage(String locatorKey, ByLocators byLocator) {
 		By element = null;
 		try {
 			switch (byLocator.getByLocator()) {
@@ -881,8 +818,7 @@ public abstract class BasePage implements Closeable {
 	public String getCookieValue(String cookieName) {
 		String value = null;
 		try {
-			value = URLDecoder
-					.decode(getCookie(cookieName).getValue(), "UTF-8");
+			value = URLDecoder.decode(getCookie(cookieName).getValue(), "UTF-8");
 		} catch (final UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -895,8 +831,7 @@ public abstract class BasePage implements Closeable {
 		while (webDriver.findElements(by).size() > 0) {
 			count++;
 			if (count >= WEB_ELEMENT_POLL_THRESHOLD_IN_SEC) {
-				final WebDriverWait wait = new WebDriverWait(webDriver,
-						WEB_ELEMENT_POLL_THRESHOLD_IN_SEC);
+				final WebDriverWait wait = new WebDriverWait(webDriver, WEB_ELEMENT_POLL_THRESHOLD_IN_SEC);
 				wait.until(ExpectedConditions.invisibilityOfElementLocated(by));
 				break;
 			}
@@ -908,12 +843,11 @@ public abstract class BasePage implements Closeable {
 	 */
 	public void setClipboardData(String string) {
 		final StringSelection stringSelection = new StringSelection(string);
-		Toolkit.getDefaultToolkit().getSystemClipboard()
-				.setContents(stringSelection, null);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
 
-	public boolean verifyOptionsInsideDropDown(WebElement elementDD,
-			Set<String> expectedSetOfOptions) throws AutomationException {
+	public boolean verifyOptionsInsideDropDown(WebElement elementDD, Set<String> expectedSetOfOptions)
+			throws AutomationException {
 		final Select select = new Select(elementDD);
 		final List<WebElement> options = select.getOptions();
 		for (int i = 0; i < expectedSetOfOptions.size(); i++) {
@@ -1042,8 +976,7 @@ public abstract class BasePage implements Closeable {
 	 * @return
 	 * @throws ParseException
 	 */
-	public String formatDate(String oldFormat, String oldDate, String newFormat)
-			throws ParseException {
+	public String formatDate(String oldFormat, String oldDate, String newFormat) throws ParseException {
 
 		final Date date = new SimpleDateFormat(oldFormat).parse(oldDate);
 		return new SimpleDateFormat(newFormat).format(date);

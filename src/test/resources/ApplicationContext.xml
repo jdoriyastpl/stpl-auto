@@ -13,7 +13,22 @@
 		<constructor-arg>
 			<map key-type="java.lang.String" value-type="java.lang.String">
 				<!-- SWA Home Page Elements -->
-				<entry key="apparel" value="Apparel" />
+				<entry key="Apparel" value="[data-cid='31245']" />
+				<entry key="login_create_account_xpath" value="//*[@id='welcome-data']/a"/>
+				
+				<!-- SWA Apparel Category Items -->
+				<entry key="Warrior_Spirit_T-Shirt" value="js-item-cimage1-20694"/>
+				
+				<!-- SWA Product Detail page -->
+				<entry key="choose_size_xpath" value="//*[@id='basketItems[0].attributes[1].optionId_']"/>
+				<entry key="color_css" value=".item-color"/>
+				<entry key="Add to Cart" value="Add to Cart"/>
+				<entry key="choose_size_options" value="basketItems[0].attributes[1].optionId_"/>
+				
+				<!-- Login Page -->
+				<entry key="emailAddress_xpath" value="//input[@id='login']"/>
+				<entry key="password" value="password"/>
+				<entry key="Login_xpath" value="//input[@value='Login']"/>
 			</map>
 		</constructor-arg>
 	</bean>

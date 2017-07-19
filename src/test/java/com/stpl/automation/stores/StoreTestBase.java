@@ -1,6 +1,7 @@
 package com.stpl.automation.stores;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
@@ -44,4 +45,5 @@ public class StoreTestBase extends TestBase {
 		xml = getDataModel();
 		return xml.getDataAsList("SS2_Prod_Stores").get(0);
 	}
+
 }

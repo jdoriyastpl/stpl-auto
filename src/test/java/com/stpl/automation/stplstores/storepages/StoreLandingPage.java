@@ -23,11 +23,17 @@ public class StoreLandingPage extends BasePage {
 	
 	
 	public StoreCategoryPage clickOnCategoryName(String CategoryName) throws AutomationException{
-		getWebElementByLinkText(CategoryName).click();
+		getWebElementByCss(CategoryName).click();
 		return new StoreCategoryPage(webDriver, pageElements);
 	}
 	
 	public void goToStore(String storeName) throws AutomationException{
 		goTo(storeName);
+	
+	}
+	
+	public StoreLoginPage clickOnLoginCreateAccount() throws AutomationException{
+		getWebElementByXpath("login_create_account_xpath").click();
+		return new StoreLoginPage(webDriver, pageElements);
 	}
 }

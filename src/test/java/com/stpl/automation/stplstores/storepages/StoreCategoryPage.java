@@ -22,7 +22,12 @@ public class StoreCategoryPage extends BasePage{
 		super(webDriver, pageElements);
 	}
 	
-	
+	public StoreProductDetailPage clickOnItem(String ItemName) throws AutomationException{
+		scrollIntoView(getWebElementById(ItemName));
+		getWebElementById(ItemName).click();
+		return new StoreProductDetailPage(webDriver, pageElements);
+		
+	}
 	
 	
 }
