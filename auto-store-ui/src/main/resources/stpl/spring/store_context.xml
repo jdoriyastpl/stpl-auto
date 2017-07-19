@@ -1,0 +1,25 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+				    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    
+	<import resource="classpath:config/spring/auto_config_context.xml" />
+	<import resource="classpath:webdriver/spring/web_driver_context.xml" />
+
+	<bean id="pageElements" class="java.util.HashMap">
+		<constructor-arg>
+			<map key-type="java.lang.String" value-type="java.lang.String">
+			<!-- SWA Home Page Elements -->
+				<entry key="apparel" value="Apparel" />
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="storeLandingPage"	class="com.sarvika.automation.store.pages.StoreLandingPage"
+		lazy-init="true">
+		<constructor-arg name="webDriverConfiguration" ref="webDriverConfig" />
+		<constructor-arg name="scheme" value="${store.site.scheme}" />
+		<constructor-arg name="url" value="${store.site.url}" />
+		<property name="pageElements" ref="pageElements" />
+	</bean>
+</beans>
