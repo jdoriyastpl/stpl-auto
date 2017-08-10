@@ -10,7 +10,7 @@ import cucumber.api.junit.Cucumber;
  *
  */
 @RunWith(Cucumber.class)
-@CucumberOptions(features = "classpath:features", plugin = { "pretty",
+@CucumberOptions(features = "classpath:features/checkout_smoke_parex_usa.feature", plugin = { "pretty",
 		"html:target/cucumber-html-report" }, tags = {})
 public class RunCucumberTest {
 

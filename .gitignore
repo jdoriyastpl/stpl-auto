@@ -28,3 +28,9 @@ metric-reports/
 /*/.project
 /*/bin
 /*/.target/
+target/classes/META-INF/MANIFEST.MF
+target/classes/META-INF/MANIFEST.MF
+target/classes/META-INF/MANIFEST.MF
+*.MF
+*.MF
+target/classes/META-INF/MANIFEST.MF

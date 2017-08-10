@@ -29,6 +29,33 @@
 				<entry key="emailAddress_xpath" value="//input[@id='login']"/>
 				<entry key="password" value="password"/>
 				<entry key="Login_xpath" value="//input[@value='Login']"/>
+				
+				<!-- PAREX USA - Home Page Elements -->
+				<entry key="parex_menu_xpath" value="[@data-cid='27929']" />
+				<entry key="product_PEX0001_xpath" value="//img[@id='js-item-cimage-20172']" />
+				<!-- PAREX USA -Product Page Elements -->
+				<entry key="Largewhite_xpath" value="//*[@id='qty_0']"/>
+				<entry key="add to cart_button_xpath" value="//input[@value='Add to Cart']"/>
+				<!-- PAREX USA - Shopping Cart Page Elements -->
+				<entry key="checkout_button_id" value="checkoutbtn"/>
+				<entry key="Address1_id" value="addresses.billingAddress.address1"/>
+				<entry key="city_id" value="addresses.billingAddress.city"/>
+				<entry key="country_id" value="addresses.billingAddress.countryId"/>
+				<entry key="region_id" value="region"/>
+				<entry key="zipcode_xpath" value="//*[@id='addresses.billingAddress.postal']"/>
+				<entry key="continue_button_xpath" value="//*[@value='Continue']"/>
+				<entry key="continue_button_paymentpage_id" value="continueButton"/>
+				<!-- PAREX USA - CC Pay Page Elements -->
+				<entry key="cardno_xpath" value="//*[@id='card-no']"/>
+				<entry key="Month_id" value="month"/>
+				<entry key="year_id" value="year"/>
+				<entry key="nameoncard_id" value="name"/>
+				<entry key="continue_xpath" value="//*[@value='Continue']"/>
+				
+				
+				
+				
+				
 			</map>
 		</constructor-arg>
 	</bean>
