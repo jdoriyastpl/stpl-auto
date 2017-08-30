@@ -16,12 +16,6 @@ public class StoreTestBase extends TestBase {
 
 	private static final Logger LOG = Logger.getLogger(StoreTestBase.class			.getSimpleName());
 
-	
-	
-	
-	@Autowired
-	protected StoreLandingPage  storeLandingPage;
-	
 	public XMLReader xml;
 
 	public XMLReader getDataModel() throws AutomationException {

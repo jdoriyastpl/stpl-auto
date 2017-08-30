@@ -3,6 +3,7 @@ package com.stpl.automation.stplstores.storepages;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.stpl.automation.exceptions.AutomationException;
 import com.stpl.automation.webdriver.WebDriverConfig;
@@ -24,8 +25,15 @@ public class StoreLoginPage  extends BasePage{
 	public StoreLandingPage loginToStore(String emailAddress , String password) throws AutomationException{
 		getWebElementByXpath("emailAddress_xpath").sendKeys(emailAddress);
 		getWebElementById("password").sendKeys(password);
-		getWebElementByXpath("Login_xpath").click();
+		clickOnLogIn();
 		return new StoreLandingPage(webDriver, pageElements);
 	}
 
+	public void clickOnLogIn() throws AutomationException{
+		for (WebElement element : getWebElementsByXpath("Login_xpath")) {
+			if( element.isDisplayed()){
+				element.click();
+			}
+		}
+	}
 }

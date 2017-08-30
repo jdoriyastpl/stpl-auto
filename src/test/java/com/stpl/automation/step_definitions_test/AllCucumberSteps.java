@@ -29,7 +29,7 @@ import cucumber.api.java.en.When;
  *
  */
 public class AllCucumberSteps extends StoreTestBase {
-
+//
 //	private static final Logger LOG = Logger.getLogger(AllCucumberSteps.class.getSimpleName());
 //
 //	Hashtable<String, String> storeUrl;

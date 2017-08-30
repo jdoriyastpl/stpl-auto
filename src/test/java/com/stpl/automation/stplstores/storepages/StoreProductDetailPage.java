@@ -20,18 +20,26 @@ public class StoreProductDetailPage extends BasePage {
 	public StoreProductDetailPage(WebDriver webDriver, Map<String, String> pageElements) {
 		super(webDriver, pageElements);
 	}
-	
-	
-	public Boolean verifyColorOrSize(){
-		return isElementPresentOnPage("choose_size_xpath", ByLocators.BY_XPATH) || isElementPresentOnPage("color_css", ByLocators.BY_CSS) ;
+
+	public Boolean verifyColorOrSize() {
+		return isElementPresentOnPage("choose_size_xpath", ByLocators.BY_XPATH)
+				|| isElementPresentOnPage("color_css", ByLocators.BY_CSS);
 	}
-	
-	public void clickOnAddToCart() throws AutomationException{
-		getWebElementByLinkTextDirectly("Add to Cart").click();
+
+	public StoreShoppingCartPage clickOnAddToCart() throws AutomationException {
+		getWebElementByXpath("add_to_cart_button_xpath").click();
+		return new StoreShoppingCartPage(webDriver, pageElements);
 	}
 
 	public void selectSizeOptionAs(String size) throws AutomationException {
 		selectDropDownById("choose_size_options", size);
 	}
-	
+
+	public Boolean isQuantityEmpty() throws AutomationException {
+		if (getWebElementByCss("quantity_input_css").getText().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

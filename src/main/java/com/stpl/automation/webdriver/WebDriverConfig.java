@@ -44,6 +44,9 @@ public final class WebDriverConfig extends DesiredCapabilities {
         // SAUCE :This setting specifies which screen resolution should be used during the test session.
         setCapability("screen-resolution", ScreenResolution.SCREEN_1920_1080.getScreenResolution());
         setPlatform((Platform) testConfiguration.get(PLATFORM_KEY));
+        setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+        setCapability("browserstack.debug", true);
+        setCapability("browserstack.networkLogs", true);
     }
 
 

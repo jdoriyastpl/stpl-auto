@@ -3,6 +3,7 @@ package com.stpl.automation.stplstores.storepages;
 import java.util.Map;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 import com.stpl.automation.exceptions.AutomationException;
 import com.stpl.automation.webdriver.WebDriverConfig;
@@ -23,7 +24,7 @@ public class StoreLandingPage extends BasePage {
 	
 	
 	public StoreCategoryPage clickOnCategoryName(String CategoryName) throws AutomationException{
-		getWebElementByCss(CategoryName).click();
+		getWebElementByXpath(CategoryName).click();
 		return new StoreCategoryPage(webDriver, pageElements);
 	}
 	
@@ -33,7 +34,15 @@ public class StoreLandingPage extends BasePage {
 	}
 	
 	public StoreLoginPage clickOnLoginCreateAccount() throws AutomationException{
-		getWebElementByXpath("login_create_account_xpath").click();
+		for (WebElement element : getWebElementsByXpath("login_create_account_xpath")) {
+			if (element.isDisplayed()){
+				element.click();
+			}
+		}
 		return new StoreLoginPage(webDriver, pageElements);
+	}
+	
+	public StoreShoppingCartPage gotoCartPage(){
+		return new StoreShoppingCartPage(webDriver, pageElements);
 	}
 }

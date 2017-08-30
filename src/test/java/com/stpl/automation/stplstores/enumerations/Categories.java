@@ -2,7 +2,7 @@ package com.stpl.automation.stplstores.enumerations;
 
 public enum Categories {
 	
-	APPAREL("Apparel"),Accessories("Accessories");
+	APPAREL("Apparel"),Accessories("Accessories"), PAREX("Parex"),PAREX_MERLEX("Merlex"),PAREX_MERKRETE("Merkrete");
 
 	private String categoryName;
 

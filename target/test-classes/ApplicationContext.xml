@@ -6,7 +6,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:property-placeholder
-		location="classpath:environment/mybrandmall/sarvika_auto.properties" />
+		location="classpath:environment/shopstar2-clone/sarvika_auto.properties" />
 
 
 	<bean id="pageElements" class="java.util.HashMap">
@@ -28,16 +28,22 @@
 				<!-- Login Page -->
 				<entry key="emailAddress_xpath" value="//input[@id='login']"/>
 				<entry key="password" value="password"/>
-				<entry key="Login_xpath" value="//input[@value='Login']"/>
+				<entry key="Login_xpath" value="//input[contains(@value,'Log') and @type!='hidden']"/>
 				
 				<!-- PAREX USA - Home Page Elements -->
-				<entry key="parex_menu_xpath" value="[@data-cid='27929']" />
-				<entry key="product_PEX0001_xpath" value="//img[@id='js-item-cimage-20172']" />
+				<entry key="Parex" value="//div[@id='toggle-menu']/ul/li/a[text()='Parex']" />
+				<entry key="Merlex" value="//div[@id='toggle-menu']/ul/li/a[text()='Merlex']" />
+				<entry key="Merkrete" value="//div[@id='toggle-menu']/ul/li/a[text()='Merkrete']" />
+				<entry key="product_PEX0001_id" value="js-item-cimage-20128" />
+				<entry key="product_MER0006_id" value="js-item-cimage-20108" />
 				<!-- PAREX USA -Product Page Elements -->
 				<entry key="Largewhite_xpath" value="//*[@id='qty_0']"/>
-				<entry key="add to cart_button_xpath" value="//input[@value='Add to Cart']"/>
+				<entry key="add_to_cart_button_xpath" value="//*[contains(@id,'js-item-addtocartbtn')]"/>
+				<entry key="quantity_input_css" value=".qty-input"/>
 				<!-- PAREX USA - Shopping Cart Page Elements -->
 				<entry key="checkout_button_id" value="checkoutbtn"/>
+				<entry key="remove_item_css" value=".basket-action-link>a[onclick='removeFromBasket(0)']"/>
+				<entry key="continue_shopping" value=".//*[text()='Continue Shopping']"/>
 				<entry key="Address1_id" value="addresses.billingAddress.address1"/>
 				<entry key="city_id" value="addresses.billingAddress.city"/>
 				<entry key="country_id" value="addresses.billingAddress.countryId"/>
@@ -45,15 +51,17 @@
 				<entry key="zipcode_xpath" value="//*[@id='addresses.billingAddress.postal']"/>
 				<entry key="continue_button_xpath" value="//*[@value='Continue']"/>
 				<entry key="continue_button_paymentpage_id" value="continueButton"/>
+				<entry key="security_credit_card_box" value="ui-id-1"/>
 				<!-- PAREX USA - CC Pay Page Elements -->
-				<entry key="cardno_xpath" value="//*[@id='card-no']"/>
+				<entry key="cardno_id" value="card-no"/>
 				<entry key="Month_id" value="month"/>
 				<entry key="year_id" value="year"/>
 				<entry key="nameoncard_id" value="name"/>
-				<entry key="continue_xpath" value="//*[@value='Continue']"/>
+				<entry key="cvv_id" value="cvv"/>
+				<entry key="continue_xpath" value="//*[@id='ccform']/div/input"/>
 				
 				
-				
+				<entry key="placeOrder" value="placeord"/>
 				
 				
 			</map>
@@ -65,10 +73,18 @@
 		lazy-init="true">
 		<constructor-arg name="webDriverConfiguration" ref="webDriverConfig" />
 		<constructor-arg name="scheme" value="https" />
-		<constructor-arg name="url" value="mybrandmall.com/preview" />
+		<constructor-arg name="url" value="${store.site.url}" />
 		<property name="pageElements" ref="pageElements" />
 	</bean>
 
+	<bean id="storeLandingPageVid"
+		class="com.stpl.automation.stplstores.storepages.StoreLandingPage"
+		lazy-init="true">
+		<constructor-arg name="webDriverConfiguration" ref="webDriverConfig" />
+		<constructor-arg name="scheme" value="https" />
+		<constructor-arg name="url" value="${store.site.url}/store.html?vid=" />
+		<property name="pageElements" ref="pageElements" />
+	</bean>
 	<bean id="webDriverConfig" class="com.stpl.automation.webdriver.WebDriverConfig"
 		scope="prototype" lazy-init="true">
 		<constructor-arg>

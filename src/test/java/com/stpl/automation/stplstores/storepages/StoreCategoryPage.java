@@ -22,6 +22,9 @@ public class StoreCategoryPage extends BasePage{
 		super(webDriver, pageElements);
 	}
 	
+	public String getItemTitle(String ItemName) throws AutomationException{
+		return getWebElementById(ItemName).getAttribute("title");
+	}
 	public StoreProductDetailPage clickOnItem(String ItemName) throws AutomationException{
 		scrollIntoView(getWebElementById(ItemName));
 		getWebElementById(ItemName).click();
