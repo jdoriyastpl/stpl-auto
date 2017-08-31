@@ -11,7 +11,7 @@ import cucumber.api.junit.Cucumber;
  */
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "classpath:features/checkout_smoke_parex_usa.feature", plugin = { "pretty",
-		"html:target/cucumber-html-report" }, tags = {})
+		"html:target/cucumber-html-report","json:target/cucumber-report.json" }, tags = {})
 public class RunCucumberTest {
 
 }
