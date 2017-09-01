@@ -33,7 +33,6 @@ public class StoreCcPayPage extends BasePage{
 	 * @throws AutomationException
 	 */
 	public StoreReviewOrderPage enterCreditDetails(String creditCardNo , String name, String cvv,String expiryMonth,String expiryyear) throws AutomationException{
-		
 		getWebElementById("cardno_id").sendKeys(creditCardNo);
 		getWebElementById("nameoncard_id").sendKeys(name);
 		getWebElementById("cvv_id").sendKeys(cvv);

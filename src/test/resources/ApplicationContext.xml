@@ -52,8 +52,10 @@
 				<entry key="continue_button_xpath" value="//*[@value='Continue']"/>
 				<entry key="continue_button_paymentpage_id" value="continueButton"/>
 				<entry key="security_credit_card_box" value="ui-id-1"/>
+				<entry key="my-cart" value="my-cart"/>
 				<!-- PAREX USA - CC Pay Page Elements -->
 				<entry key="cardno_id" value="card-no"/>
+				<entry key="paymentGateway" value="paymentGateway"/>
 				<entry key="Month_id" value="month"/>
 				<entry key="year_id" value="year"/>
 				<entry key="nameoncard_id" value="name"/>

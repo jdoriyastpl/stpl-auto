@@ -10,16 +10,17 @@ import com.stpl.automation.webdriver.enumeration.ByLocators;
 import com.stpl.automation.webdriver.page.BasePage;
 
 public class StorePaymentPage extends BasePage{
-
+	public final String PAYMENT_PAGE_STRING="You will be able to review your order and make changes before you are charged";
 	
 	public StorePaymentPage(WebDriverConfig webDriverConfiguration, String scheme, String url)
 			throws AutomationException {
 		super(webDriverConfiguration, scheme, url);
-		// TODO Auto-generated constructor stub
+		getWebElementById("paymentGateway");
 	}
 
-	public StorePaymentPage(WebDriver webDriver, Map<String, String> pageElements) {
+	public StorePaymentPage(WebDriver webDriver, Map<String, String> pageElements) throws AutomationException {
 		super(webDriver, pageElements);
+		getWebElementById("paymentGateway");
 	}
 	
 	public StoreCcPayPage clickOnContinueButton() throws AutomationException{

@@ -17,11 +17,15 @@ public class StoreYourInfoPage extends BasePage {
 			throws AutomationException {
 		super(webDriverConfiguration, scheme, url);
 		waitForPageToLoad("yourinfo.html");
+		getWebElementByClass("my-cart");
 		Assert.assertTrue(getPageTitle().contains(YOUR_INFO_TITLE));
 	}
 
-	public StoreYourInfoPage(WebDriver webDriver, Map<String, String> pageElements) {
+	public StoreYourInfoPage(WebDriver webDriver, Map<String, String> pageElements) throws AutomationException {
 		super(webDriver, pageElements);
+		waitForPageToLoad("yourinfo.html");
+		getWebElementByClass("my-cart");
+		Assert.assertTrue(getPageTitle().contains(YOUR_INFO_TITLE));
 	}
 
 	public void enterUSbillingInfo() throws AutomationException {
