@@ -153,13 +153,12 @@ public class ParexUsaCucumberSteps extends StoreTestBase {
 
 	@Then("^I shoud navigate to your Information page$")
 	public void i_shoud_navigate_to_your_Information_page() throws Throwable {
-		Assert.assertTrue(storeShoppingCartPage.isStaticTextDisplayed("Your Information"));
+		Assert.assertTrue(yourInfoPage.getPageTitle().contains(yourInfoPage.YOUR_INFO_TITLE));
 	}
 
 	@When("^I filled the valid deatils and submit the Your Information page$")
 	public void i_filled_the_valid_deatils_and_submit_the_Your_Information_page() throws Throwable {
 		yourInfoPage.enterUSbillingInfo();
-
 		storePaymentPage = yourInfoPage.clickContinueButton();
 	}
 

@@ -17,4 +17,8 @@ public  final class Constant {
 	public static final String EXPIRY_MONTH = "JAN";
 	public static final String EXPIRY_YEAR = "2021";
 	
+	// USA State Address
+	public static final String USA_COUNTRY_NAME="USA";
+	public static final String USA_STATE_NAME="GEORGIA";
+	public static final String USA_GEORGIA_ZIP_CODE_NAME="30002";
 }

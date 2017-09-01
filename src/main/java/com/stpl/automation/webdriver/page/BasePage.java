@@ -676,6 +676,10 @@ public abstract class BasePage implements Closeable {
 		return JSUtilities.execute(webDriver, "return window.location.href", String.class);
 	}
 
+	public String getPageTitle() {
+		return webDriver.getTitle();
+	}
+
 	public void waitForPageToLoad(String urlIdentifier) {
 		final WebDriverWait wait = new WebDriverWait(webDriver, WEB_ELEMENT_POLL_THRESHOLD_IN_MILLIS / 1000);
 		wait.until(ExpectedConditions.urlContains(urlIdentifier));
