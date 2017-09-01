@@ -39,7 +39,7 @@ public final class WebDriverConfig extends DesiredCapabilities {
    
     public WebDriverConfig(final Map<String, Object> testConfiguration) {
         this.testConfiguration = testConfiguration;
-        setCapability(CapabilityType.VERSION, String.valueOf(testConfiguration.get(BROWSER_VERSION)));
+//        setCapability(CapabilityType.VERSION, String.valueOf(testConfiguration.get(BROWSER_VERSION)));
         setBrowserName(String.valueOf(testConfiguration.get(BROWSER_NAME_KEY)));
         // SAUCE :This setting specifies which screen resolution should be used during the test session.
         setCapability("screen-resolution", ScreenResolution.SCREEN_1920_1080.getScreenResolution());
