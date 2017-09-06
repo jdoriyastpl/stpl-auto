@@ -28,7 +28,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 
 public class ParexUsaCucumberSteps extends StoreTestBase {
-
+	
 	private static final Logger LOG = Logger.getLogger(ParexUsaCucumberSteps.class.getSimpleName());
 
 	Hashtable<String, String> storeUrl;

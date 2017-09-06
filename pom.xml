@@ -50,6 +50,11 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.trivago.rta</groupId>
+			<artifactId>cucable-plugin</artifactId>
+			<version>0.0.5</version>
+		</dependency>
+		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
@@ -182,6 +187,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -254,4 +260,107 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>parallel</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.trivago.rta</groupId>
+						<artifactId>cucable-plugin</artifactId>
+						<version>0.0.6</version>
+						<executions>
+							<execution>
+								<id>generate-test-resources</id>
+								<phase>generate-test-resources</phase>
+								<goals>
+									<goal>parallel</goal>
+								</goals>
+								<configuration>
+									<sourceRunnerTemplateFile>src/test/resources/parallel/cucable.template</sourceRunnerTemplateFile>
+									<sourceFeatures>src/test/resources/features</sourceFeatures>
+									<generatedFeatureDirectory>src/test/resources/parallel/features</generatedFeatureDirectory>
+									<generatedRunnerDirectory>src/test/java/parallel/runners</generatedRunnerDirectory>
+									<numberOfTestRuns>1</numberOfTestRuns>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>Run parallel tests</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<testFailureIgnore>true</testFailureIgnore>
+							<forkCount>2</forkCount>
+							<reuseForks>false</reuseForks>
+							<argLine>-Dfile.encoding=UTF-8</argLine>
+							<disableXmlReport>true</disableXmlReport>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>net.masterthought</groupId>
+						<artifactId>maven-cucumber-reporting</artifactId>
+						<executions>
+							<execution>
+								<id>report</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>generate</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>target</outputDirectory>
+									<cucumberOutput>target/cucumber-report</cucumberOutput>
+									<projectName>My Report</projectName>
+									<buildNumber>1</buildNumber>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				<!-- 	<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<dependencies>
+							<dependency>
+								<groupId>com.trivago.rta</groupId>
+								<artifactId>your-custom-maven-fail-rule</artifactId>
+								<version>${fail.rule.version}</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
+								<configuration>
+									<rules>
+										<yourRule implementation="com.example.YourFailRule" />
+									</rules>
+									<fail>true</fail>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin> -->
+				</plugins>
+			</build>
+		</profile>
+</profiles>
 </project>

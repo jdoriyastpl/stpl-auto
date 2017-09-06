@@ -21,7 +21,6 @@ import com.stpl.automation.webdriver.page.BasePage;
 // @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public abstract class TestBase extends AbstractTestNGSpringContextTests {
 	
-	
 	public ApplicationContext applicationContext;
 
 	
