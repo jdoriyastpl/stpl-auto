@@ -8,7 +8,7 @@ package com.stpl.automation.webdriver.enumeration;
 public enum ByLocators {
 
 	BY_XPATH("xpath"), BY_CSS("css"), BY_LINK_TEXT("linkText"), BY_CLASSNAME(
-			"className"), BY_ID("id");
+			"className"), BY_ID("id"),BY_NAME("name");
 
 	private String byLocator;
 

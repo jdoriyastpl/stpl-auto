@@ -779,6 +779,9 @@ public abstract class BasePage implements Closeable {
 			case "linkText":
 				element = byElementLinkTextDirectly(locatorKey);
 				break;
+			case "name":
+				element = byElementName(locatorKey);
+				break;
 			default:
 				break;
 			}

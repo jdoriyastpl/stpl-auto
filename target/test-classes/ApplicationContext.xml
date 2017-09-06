@@ -42,7 +42,7 @@
 				<entry key="quantity_input_css" value=".qty-input"/>
 				<!-- PAREX USA - Shopping Cart Page Elements -->
 				<entry key="checkout_button_id" value="checkoutbtn"/>
-				<entry key="remove_item_css" value=".basket-action-link>a[onclick='removeFromBasket(0)']"/>
+				<entry key="remove_item_css" value="a[onclick='removeFromBasket(0)']"/>
 				<entry key="continue_shopping" value=".//*[text()='Continue Shopping']"/>
 				<entry key="Address1_id" value="addresses.billingAddress.address1"/>
 				<entry key="city_id" value="addresses.billingAddress.city"/>
@@ -65,7 +65,37 @@
 				
 				<entry key="placeOrder" value="placeord"/>
 				
+				<!-- SWA Home Page Elements -->
+				<entry key="login_xpath" value="//*[@id='welcome-data']"/>
 				
+				<entry key="login_email_xpath" value="//*[@id='login']"/>
+				<entry key="login_password_xpath" value="//*[@id='password']"/>
+				<entry key="login_button_xpath" value="//input[@type='submit']"/>
+				<!-- SWA Apparel Category Items -->
+				<entry key="Apparel" value="//a[contains(.,'Apparel')]"/>
+				<!-- SWA Apparel Category Items -->
+				<entry key="Warrior_Spirit_T-Shirt_id" value="js-item-cimage1-20200"/>
+				<!-- SWA Product Detail page -->
+				<entry key = "item-attr-section" value =".item-attr-section"/>
+				<entry key = "choose_size_id" value ="basketItems[0].attributes[1].optionId_"/>
+				<entry key="color_xpath" value="//a[contains(@id,'14170')]"/>
+				<entry key="Add_to_Cart_xpath" value="//a[contains(.,'Add to Cart')]"/>
+				<!-- SWA Product checkout page -->
+				<entry key="Continue_checkout_id" value="checkoutbtn"/>
+				<entry key="Address1_id" value="addresses.billingAddress.address1"/>
+				<entry key="city_id" value="addresses.billingAddress.city"/>
+				<entry key="country_id" value="addresses.billingAddress.countryId"/>
+				<entry key="region_id" value="region"/>
+				<entry key="zipcode_xpath" value="//*[@id='addresses.billingAddress.postal']"/>
+				<entry key="your_info._xpath" value="//*[@value='Continue']"/>
+				<entry key="payment_xpath" value="//*[@value='Continue']"/>
+				<entry key="phone_id" value="addresses.billingAddress.dphone"/>
+				<!-- SWA Product CCPay page -->
+				<entry key="payee_name_id" value="name"/>
+				<entry key="Exp_date_month_id" value="month"/>
+				<entry key="Exp_date_year_id" value="year"/>
+				<entry key="card_no_id" value="card-no"/>
+				<entry key="Submit_CC page_xpath" value="//*[@value='Submit']"/>
 			</map>
 		</constructor-arg>
 	</bean>

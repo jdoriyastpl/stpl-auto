@@ -19,6 +19,7 @@ public  final class Constant {
 	
 	// USA State Address
 	public static final String USA_COUNTRY_NAME="USA";
+	public static final String USA_PHONE_NO="+12893171546";
 	public static final String USA_STATE_NAME="GEORGIA";
 	public static final String USA_GEORGIA_ZIP_CODE_NAME="30002";
 }

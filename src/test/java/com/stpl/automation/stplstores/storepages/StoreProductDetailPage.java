@@ -27,12 +27,17 @@ public class StoreProductDetailPage extends BasePage {
 	}
 
 	public StoreShoppingCartPage clickOnAddToCart() throws AutomationException {
+		try{
 		getWebElementByXpath("add_to_cart_button_xpath").click();
+		}
+		catch(Exception e){
+			getWebElementByXpath("Add_to_Cart_xpath").click();
+		}
 		return new StoreShoppingCartPage(webDriver, pageElements);
 	}
 
 	public void selectSizeOptionAs(String size) throws AutomationException {
-		selectDropDownById("choose_size_options", size);
+		selectDropDownById("choose_size_id", size);
 	}
 
 	public Boolean isQuantityEmpty() throws AutomationException {
