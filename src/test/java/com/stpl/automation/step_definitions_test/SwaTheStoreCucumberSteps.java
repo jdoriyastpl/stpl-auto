@@ -175,7 +175,7 @@ public class SwaTheStoreCucumberSteps extends StoreTestBase {
 		Assert.assertTrue(storePaymentPage.isStaticTextDisplayed("Pay by Credit Card"));
 	}
 
-	@When("^I choose credit card as Payment Method and Click on continue button $")
+	@When("^I choose credit card as Payment Method and Click on continue button$")
 	public void i_choose_credit_card_as_Payment_Method_and_Click_on_continue_button() throws Throwable {
 		storeCcPayPage = storePaymentPage.clickOnContinueButton();
 		Assert.assertTrue(storePaymentPage.isSecurityCCDialogBoxDisplayed());
