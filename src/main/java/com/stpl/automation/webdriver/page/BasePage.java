@@ -138,14 +138,7 @@ public abstract class BasePage implements Closeable {
 	 * Check test view is for Mobile or Desktop View
 	 */
 	public void setWebDimensionForTest() {
-		// if
-		// (getWebTestViewAsMobile().equalsIgnoreCase(Boolean.TRUE.toString()))
-		// {
-		// Mobile Responsive view
-		// this.webDriver.manage().window().setSize(new Dimension(320, 480));
-		// } else {
 		this.webDriver.manage().window().maximize();
-		// }
 	}
 
 	public BasePage(WebDriver webDriver, Map<String, String> pageElements) {
