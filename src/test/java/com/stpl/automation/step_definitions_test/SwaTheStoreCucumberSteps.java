@@ -47,12 +47,7 @@ public class SwaTheStoreCucumberSteps extends StoreTestBase {
 	String itemTitle = null;
 	String currentUrl;
 
-	private void initializeSystemProperties() {
 
-		applicationContext = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-		applicationContext.getAutowireCapableBeanFactory().autowireBean(this);
-		storeLandingPageVid = (StoreLandingPage) applicationContext.getBean("storeLandingPageVid");
-	}
 
 	@Before
 	public void setup() throws AutomationException {
@@ -71,6 +66,7 @@ public class SwaTheStoreCucumberSteps extends StoreTestBase {
 	
 	@Given("^I have Store url and valid registered user details$")
 	public void i_have_Store_url_and_valid_registered_user_details() throws Throwable {
+		storeLandingPageVid = (StoreLandingPage) applicationContext.getBean("storeLandingPageVid");
 		currentUrl = storeLandingPageVid.getCurrentURL();
 		LOG.info(currentUrl);
 		storeLandingPageVid.goToStore(currentUrl + SWA_THE_STORE_VID);

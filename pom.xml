@@ -49,6 +49,12 @@
 	</properties>
 
 	<dependencies>
+	 <dependency>
+        <groupId>info.cukes</groupId>
+        <artifactId>cucumber-spring</artifactId>
+        <version>${cucumber.version}</version>
+        <scope>test</scope>
+    </dependency>
 		<dependency>
 			<groupId>com.trivago.rta</groupId>
 			<artifactId>cucable-plugin</artifactId>

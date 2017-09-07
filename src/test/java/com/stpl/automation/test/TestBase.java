@@ -12,6 +12,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeSuite;
 
 import com.stpl.automation.exceptions.AutomationException;
+import com.stpl.automation.stplstores.storepages.StoreLandingPage;
 import com.stpl.automation.webdriver.page.BasePage;
 
 /**
@@ -23,6 +24,11 @@ public abstract class TestBase extends AbstractTestNGSpringContextTests {
 	
 	public ApplicationContext applicationContext;
 
-	
+	protected void initializeSystemProperties() {
+
+		applicationContext = new ClassPathXmlApplicationContext("ApplicationContext.xml");
+		applicationContext.getAutowireCapableBeanFactory().autowireBean(this);
+		
+	}
 	
 }
