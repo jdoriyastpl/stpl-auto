@@ -10,6 +10,7 @@ import com.stpl.automation.utils.PollingUtilities;
 import com.stpl.automation.webdriver.WebDriverConfig;
 import com.stpl.automation.webdriver.WebDriverFactory;
 import com.stpl.automation.webdriver.enumeration.ByLocators;
+import com.stpl.automation.webdriver.enumeration.TargetResource;
 
 import org.openqa.selenium.TakesScreenshot;
 
@@ -125,8 +126,8 @@ public abstract class BasePage implements Closeable {
 	public BasePage(WebDriverConfig webDriverConfiguration, String scheme, String url) throws AutomationException {
 		this(WebDriverFactory.create(webDriverConfiguration));
 		this.originUrl = String.format(Constant.SCHEME_URL_TEMPLATE, scheme, url);
-		setWebDimensionForTest();
 		this.webDriver.get(originUrl);
+		setWebDimensionForTest();
 		// verifyJavascriptConsoleErrors();
 	}
 
@@ -138,7 +139,8 @@ public abstract class BasePage implements Closeable {
 	 * Check test view is for Mobile or Desktop View
 	 */
 	public void setWebDimensionForTest() {
-		this.webDriver.manage().window().maximize();
+		
+//		this.webDriver.manage().window().maximize();}
 	}
 
 	public BasePage(WebDriver webDriver, Map<String, String> pageElements) {
