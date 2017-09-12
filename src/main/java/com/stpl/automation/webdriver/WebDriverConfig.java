@@ -42,7 +42,7 @@ public final class WebDriverConfig extends DesiredCapabilities {
 //        setCapability(CapabilityType.VERSION, String.valueOf(testConfiguration.get(BROWSER_VERSION)));
         setBrowserName(String.valueOf(testConfiguration.get(BROWSER_NAME_KEY)));
         // SAUCE :This setting specifies which screen resolution should be used during the test session.
-//        setCapability("screen-resolution", ScreenResolution.SCREEN_1280_1024.getScreenResolution());
+        setCapability("screen-resolution", ScreenResolution.SCREEN_1920_1080.getScreenResolution());
         setPlatform((Platform) testConfiguration.get(PLATFORM_KEY));
         setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
         setCapability("browserstack.debug", true);

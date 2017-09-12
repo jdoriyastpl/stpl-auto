@@ -140,7 +140,7 @@ public abstract class BasePage implements Closeable {
 	 */
 	public void setWebDimensionForTest() {
 		
-//		this.webDriver.manage().window().maximize();}
+		this.webDriver.manage().window().maximize();
 	}
 
 	public BasePage(WebDriver webDriver, Map<String, String> pageElements) {

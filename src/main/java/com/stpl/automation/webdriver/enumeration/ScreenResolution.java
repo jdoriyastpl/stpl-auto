@@ -6,7 +6,7 @@ package com.stpl.automation.webdriver.enumeration;
 public enum ScreenResolution {
 
 	SCREEN_1280_1024("1280x1024"),
-    SCREEN_1920_1080("1920x1080");
+    SCREEN_1920_1080("1920x950");
 
     private String screenResolution;
 
