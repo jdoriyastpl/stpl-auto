@@ -3,6 +3,7 @@ package com.stpl.automation.step_definitions_test;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -55,7 +56,7 @@ public class ParexUsaCucumberSteps extends StoreTestBase {
 		storeUrl = getStoreUri();
 	}
 
-	@After
+	@AfterClass
 	public void scenarioTearDown(Scenario scenario) {
 		storeLandingPageVid.embedScreenshotOnFailure(scenario);
 		storeLandingPageVid.quitWebDriver();
